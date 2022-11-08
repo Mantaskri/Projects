@@ -21,9 +21,11 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function homelist()
+    public function index()
     {
-        return view('index');
+        $allCategories = ['Category 1', 'Category 2'];
+
+        return view('index', ['categories' => $allCategories]);
     }
     public function about()
     {
