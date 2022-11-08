@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Category;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\Post;
+
 class HomeController extends Controller
 {
     /**
@@ -11,11 +12,11 @@ class HomeController extends Controller
      *
      * @return void
      */
-     /**public function __construct()
+    /**public function __construct()
     {
         $this->middleware('auth');
     }
-*/
+     */
     /**
      * Show the application dashboard.
      *
@@ -23,9 +24,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $allCategories = Category::all();
+        $Categories = Category::all();
+        $posts = Post::latest()->get();
 
-        return view('index', ['categories' => $allCategories]);
+        return view('index', [
+            'categories' => $Categories,
+            'posts' => $posts
+        ]);
+        /*
+        easier to use: return view('index',
+            compact('categories','posts'));
+        */
     }
     public function about()
     {
