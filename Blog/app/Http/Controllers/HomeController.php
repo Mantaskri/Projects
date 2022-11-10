@@ -25,8 +25,10 @@ class HomeController extends Controller
     public function index()
     {
         $Categories = Category::all();
-        $posts = Post::where('category_id', request('category_id'))
-        ->latest()
+        $posts = Post::when(request('category_id'), function($query) {
+            $query->where('category_id', request('category_id'));
+        })
+            ->latest()
         ->get();
 
         //$posts = Post::orderBy('id', 'desc');
